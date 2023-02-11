@@ -1,0 +1,36 @@
+.App {
+  text-align: center;
+}
+
+.image-grid {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+.images {
+  padding: 5px;
+}
+
+.images:hover {
+  border: 5px solid #000;
+  padding: 0;
+  opacity: 0.5;
+}
+
+img.hit{
+   box-shadow:0px 12px 22px 1px green;
+   border: 5px solid green;
+   padding: 0;
+}
+
+img.miss{
+   box-shadow:0px 12px 22px 1px red;
+   border: 5px solid red;
+   padding: 0;
+}
+
+.nav-item {
+  text-transform: capitalize;
+}
