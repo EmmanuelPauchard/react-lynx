@@ -2,6 +2,26 @@
   text-align: center;
 }
 
+/* .menu { */
+/*   background-color: blue; */
+/* } */
+
+nav {
+  flex-flow: row wrap;
+  height: 130px;
+}
+
+img {
+    border-radius: 8px;
+}
+
+img.target {
+  border-radius: 20%;
+  max-height: 100px;
+  max-width: 100px;
+  justify-items: right;
+}
+
 .image-grid {
   align-items: center;
   display: flex;

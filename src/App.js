@@ -4,6 +4,7 @@ import './App.css';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -40,23 +41,38 @@ function pickRandomImage(l) {
 function LynxMenu({ currentDifficulty, setDifficulty, image }) {
 
   return (
-    <Navbar bg="primary" variant="dark" expand="lg">
-        <Navbar.Brand href="#home">Lynx
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <NavDropdown title={"Difficulty: " + currentDifficulty.str} id="basic-nav-dropdown">
-              {lynxDifficulty.map((x) =>
-                <NavDropdown.Item key={x.str} className={currentDifficulty === x ? "active" : ""} onClick={() => setDifficulty(x)}>{x.str}
-                </NavDropdown.Item>
-              )}
-            </NavDropdown>
-          </Nav>
-          <Nav className="me-auto">
-            <Image src={image}/>
-          </Nav>
-        </Navbar.Collapse>
+
+    // <div class="menu d-flex flex-row justify-content-between bg-primary">
+    //   <div class="p-2">Lynx</div>
+    //   <Dropdown>
+    //     <Dropdown.Toggle variant="success" id="dropdown-basic">
+    //       {"Difficulty: " + currentDifficulty.str}
+    //     </Dropdown.Toggle>
+
+    //     <Dropdown.Menu>
+    //       <Dropdown.Item>Easy</Dropdown.Item>
+    //       <Dropdown.Item>Medium</Dropdown.Item>
+    //       <Dropdown.Item>Hard</Dropdown.Item>
+    //     </Dropdown.Menu>
+    //   </Dropdown>
+
+    //   <Image src={image} />
+    // </div>
+
+    <Navbar className="p-2 align-content-center" bg="primary" variant="dark" expand="lg">
+      <Nav className="flex-column col-6 pt-0 justify-content-start">
+        <Navbar.Brand>Lynx</Navbar.Brand>
+        <NavDropdown title={"Difficulty: " + currentDifficulty.str} id="basic-nav-dropdown">
+          {lynxDifficulty.map((x) =>
+            <NavDropdown.Item key={x.str} className={currentDifficulty === x ? "active" : ""} onClick={() => setDifficulty(x)}>{x.str}
+            </NavDropdown.Item>
+          )}
+        </NavDropdown>
+      </Nav>
+
+      <Nav className="flex-row col-6 justify-content-end">
+        <Image className="target" src={image} />
+      </Nav>
     </Navbar>
   );
 }
@@ -123,13 +139,8 @@ function App() {
 
   return (
     <Container>
-      <LynxMenu setDifficulty={setDifficulty} currentDifficulty={difficulty} image={targetPic.url}/>
+      <LynxMenu setDifficulty={setDifficulty} currentDifficulty={difficulty} image={targetPic ? targetPic.url : ""}/>
       <ImageList urls={urls} target={targetPic} selected={selectedPic} handleClick={setSelectedPic} />
-      <hr />
-      {targetPic ?
-      <div align="center">
-        <Image src={targetPic.url} />
-      </div> : ""}
     </Container>
   );
 }
