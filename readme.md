@@ -15,9 +15,9 @@ The game defines 2 React components:
 - A Menu, which is a menu bar (bootstrap navbar) with game controls, status
 - An image grid, to display images for the game
 
-The game also defines a javascript module to fetch images from Flickr. To use
-it, you need to provide an API key in node's environement under the name
-*LYNX_FLICKR_API_KEY*. By default, when no key is provided, some images are
-pre-loaded in the repo to test the game.
+The game also defines a javascript module to fetch random images from Flickr. To use
+it, you need to provide an API key in the form at the bottom of the application.
+
+By default, when no key is provided, a default selection of image is available to test the game.
 
 The design is responsive and uses bootstrap breakpoints to modify the menu appearance in small screens.
