@@ -8,15 +8,15 @@
  */
 import React, { useState, useEffect } from 'react';
 
-import './App.css';
+import './Lynx.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
-import Image from 'react-bootstrap/Image'
-import { Button } from 'react-bootstrap';
+
+import LynxMenu from './Menu'
+import ImageList from './ImageGrid'
+
+import fetchImages from './ImageQuery.mjs'
 
 /**
  * The game difficulty depends on the number of images displayed
@@ -41,50 +41,7 @@ function pickRandomImage(l) {
   return l.at(Math.floor(Math.random() * l.length));
 }
 
-/**
- * The Menu bar:
- * - display and change difficulty
- * - game controls: next image, reset images, status
- * - target image
- * - player names/scores TODO
- */
-function LynxMenu({ currentDifficulty, setDifficulty, image, status, next, reset}) {
-
-  return (
-
-    <Navbar id="nav-menu" className="p-2 flex-row justify-content-between" bg="primary" variant="dark" expand="lg">
-      <Nav className="flex-column pt-0 justify-content-start col-6 col-sm-2">
-        <Navbar.Brand id="nav-brand" onClick={reset}>Lynx</Navbar.Brand>
-        <NavDropdown title={"Difficulty: " + currentDifficulty.str} id="basic-nav-dropdown">
-          {lynxDifficulty.map((x) =>
-            <NavDropdown.Item key={x.str} className={currentDifficulty === x ? "active" : ""} onClick={() => setDifficulty(x)}>{x.str}
-            </NavDropdown.Item>
-          )}
-        </NavDropdown>
-        <div id="nav-status">{status}</div>
-      </Nav>
-
-      <Image id="nav-target" className="target col-sm-3 col-6" src={image} />
-      <Nav id="nav-controls" className="flex-row flex-sm-column col-12 col-sm-2">
-        <Button variant="success" onClick={next}>Next</Button>
-        <Button variant="danger" onClick={reset}>Reset</Button>
-      </Nav>
-    </Navbar>
-  );
-}
-
-/**
- * The Image Grid container
- */
-function ImageList({ urls, target, selected, handleClick }) {
-  return (
-    <div className="image-grid">
-      {urls.map(x =>
-        <Image className={"fluid images col-6 col-md-3 " + (selected === x ? (target === selected ? "hit" : "miss") : "")} key={x.key} src={x.url} onClick={() => handleClick(x)} />)}
-    </div>);
-}
-
-function App() {
+function Lynx() {
 
   const [urls, setUrls] = useState([]);
   const [difficulty, setDifficulty] = useState(lynxDifficulty[1]);
@@ -93,39 +50,14 @@ function App() {
   const [status, setStatus] = useState("Loading...");
   const [game, setGame] = useState(0);
 
-
   useEffect(() => {
-    const page = Math.round(Math.random() * 10);
-    const perpage = 50;
-    const FLICKR_API = process.env.LYNX_FLICKR_API_KEY;
-
-    const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${FLICKR_API}&group_id=1422009%40N23&per_page=${perpage}&page=${page}&format=json&nojsoncallback=1`;
-
-    fetch(url)
-      .then(res => res.json())
-      .then(
-        (data) => {
-          if (!("photos" in data)) {
-            console.log("Error: no photos: ", data);
-          }
-          //const photo_array = data.photos.photo;
-          const photo_array = data.photos.photo.sort(() => 0.5 - Math.random()).slice(0, difficulty.tiles_nb);
-          const updated_urls = photo_array.map(el => {
-            return {
-              "url": `https://live.staticflickr.com/${el.server}/${el.id}_${el.secret}_q.jpg`,
-              "key": el.id
-            };
-          });
-          setSelectedPic("")
-          setUrls(updated_urls);
-          setTargetPic(pickRandomImage(updated_urls));
-          setStatus("Fight!")
-          console.log("Fetch done");
-        },
-        (error) => {
-          console.log("Exception while fetching resources: ", error);
-        }
-      )
+    fetchImages(difficulty.tiles_nb).then((updated_urls) => {
+      setSelectedPic("");
+      setUrls(updated_urls);
+      setTargetPic(pickRandomImage(updated_urls));
+      setStatus("Fight!");
+      console.log(updated_urls);
+    })
   }, [difficulty, game])
 
   /**
@@ -157,10 +89,10 @@ function App() {
 
   return (
     <Container>
-      <LynxMenu setDifficulty={setDifficulty} currentDifficulty={difficulty} image={targetPic ? targetPic.url : ""} status={status} next={next} reset={reset}/>
+      <LynxMenu setDifficulty={setDifficulty} currentDifficulty={difficulty} difficulties={lynxDifficulty} image={targetPic ? targetPic.url : ""} status={status} next={next} reset={reset}/>
       <ImageList urls={urls} target={targetPic} selected={selectedPic} handleClick={validatePick} />
     </Container>
   );
 }
 
-export default App;
+export default Lynx;

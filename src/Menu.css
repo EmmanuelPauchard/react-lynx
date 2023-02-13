@@ -1,0 +1,13 @@
+nav {
+  text-transform: capitalize;
+}
+
+#basic-nav-dropdown {
+  padding: 0;
+}
+
+#nav-target {
+  border-radius: 20%;
+  max-height: 150px;
+  max-width: 150px;
+}
