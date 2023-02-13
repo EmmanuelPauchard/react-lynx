@@ -1,5 +1,5 @@
-import Image from 'react-bootstrap/Image'
-import './ImageGrid.css'
+import Image from 'react-bootstrap/Image';
+import './ImageGrid.css';
 
 /**
  * The Image Grid container

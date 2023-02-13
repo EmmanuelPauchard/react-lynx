@@ -13,10 +13,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Container from 'react-bootstrap/Container';
 
-import LynxMenu from './Menu'
-import ImageList from './ImageGrid'
+import LynxMenu from './Menu';
+import ImageList from './ImageGrid';
 
-import fetchImages from './ImageQuery.mjs'
+import fetchImages from './ImageQuery.mjs';
 
 /**
  * The game difficulty depends on the number of images displayed

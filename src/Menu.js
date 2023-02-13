@@ -9,9 +9,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Button } from 'react-bootstrap';
-import Image from 'react-bootstrap/Image'
+import Image from 'react-bootstrap/Image';
 
-import './Menu.css'
+import './Menu.css';
 
 /**
  * Renders the game Menu component.
