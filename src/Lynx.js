@@ -15,8 +15,8 @@ import Container from 'react-bootstrap/Container';
 
 import LynxMenu from './Menu';
 import ImageList from './ImageGrid';
-
 import fetchImages from './ImageQuery.mjs';
+import ApiInput from './ApiInput.js'
 
 /**
  * The game difficulty depends on the number of images displayed
@@ -49,9 +49,10 @@ function Lynx() {
   const [selectedPic, setSelectedPic] = useState();
   const [status, setStatus] = useState("Loading...");
   const [game, setGame] = useState(0);
+  const [api, setApi] = useState("");
 
   useEffect(() => {
-    fetchImages(difficulty.tiles_nb).then((updated_urls) => {
+    fetchImages(difficulty.tiles_nb, api).then((updated_urls) => {
       setSelectedPic("");
       setUrls(updated_urls);
       setTargetPic(pickRandomImage(updated_urls));
@@ -89,8 +90,17 @@ function Lynx() {
 
   return (
     <Container>
-      <LynxMenu setDifficulty={setDifficulty} currentDifficulty={difficulty} difficulties={lynxDifficulty} image={targetPic ? targetPic.url : ""} status={status} next={next} reset={reset}/>
-      <ImageList urls={urls} target={targetPic} selected={selectedPic} handleClick={validatePick} />
+      <LynxMenu setDifficulty={setDifficulty} currentDifficulty={difficulty} difficulties={lynxDifficulty} image={targetPic ? targetPic.url : ""} status={status} next={next} reset={api === "" ? null : reset}/>
+      {
+        urls.length >0 ?
+          <ImageList urls={urls} target={targetPic} selected={selectedPic} handleClick={validatePick} />
+        : <div className="alert alert-danger">No images. Please check your API key.</div>
+      }
+      <hr/>
+      <div>
+        <div>{api === "" ? "Using predefined Flickr Images; Add your API key to get new random images from Flickr" : `Using Flickr Api Key ${api}`}</div>
+        <ApiInput handler={setApi} value={api}/>
+      </div>
     </Container>
   );
 }

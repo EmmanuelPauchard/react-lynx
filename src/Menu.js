@@ -31,7 +31,7 @@ import './Menu.css';
  *
  * @param status {str} The game status to display
  * @param next {callable} Event handler to move to the next target image
- * @param reset {callable} Event handler to reset the game image gallery
+ * @param reset {callable | null} Event handler to reset the game image gallery. If not set, button is disabled
  *
  * @return the menu, a Bootstrap Navbar component
  */
@@ -55,7 +55,7 @@ const LynxMenu = ({ currentDifficulty, setDifficulty, difficulties, image, statu
 
       <Nav id="nav-controls" className="flex-row flex-sm-column col-12 col-sm-2">
         <Button variant="success" onClick={next}>Next</Button>
-        <Button variant="danger" onClick={reset}>Reset</Button>
+        <Button variant="danger" disabled={reset === null ? true: false} onClick={reset}>Reset</Button>
       </Nav>
 
     </Navbar>
