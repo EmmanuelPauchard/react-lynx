@@ -40,8 +40,8 @@ const default_images_urls = [
     key: '52664948705'
   },
   {
-    url: 'https://live.staticflickr.com/65535/52664102597_dcd1116d98_q.jpg',
-    key: '52664102597'
+    "url": "https://live.staticflickr.com/65535/52697585154_3c34e92bfa_q.jpg",
+    "key": "52697585154"
   },
   {
     url: 'https://live.staticflickr.com/65535/52664876950_5b3a50bb45_q.jpg',
