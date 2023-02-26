@@ -30,7 +30,7 @@ async function fetchImages(number=24, api_key="") {
       console.log("Exception while fetching resources: ", error);
     }
   } else {
-    updated_urls = default_images_urls;
+    updated_urls = default_images_urls.slice(0, number);
   }
 
   return updated_urls;
