@@ -6,9 +6,9 @@ import './ImageGrid.css';
  */
 const ImageList = ({ urls, target, selected, handleClick }) => {
   return (
-    <div className="image-grid">
+    <div className="image-grid justify-content-center flex-wrap">
       {urls.map(x =>
-        <Image className={"fluid images col-6 col-md-3 " + (selected === x ? (target === selected ? "hit" : "miss") : "")} key={x.key} src={x.url} onClick={() => handleClick(x)} />)}
+        <Image className={"images col-6 col-md-2 " + (selected === x ? (target === selected ? "hit" : "miss") : "")} key={x.key} src={x.url} onClick={() => handleClick(x)} />)}
     </div>);
 };
 

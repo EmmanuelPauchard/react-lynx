@@ -1,6 +1,6 @@
 .image-grid {
-  align-items: center;
   justify-content: space-evenly;
+  display: flex;
 }
 
 .images {
