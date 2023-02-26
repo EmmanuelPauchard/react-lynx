@@ -8,8 +8,13 @@ import Form from 'react-bootstrap/Form';
 const ApiInput = ({handler, value}) => {
   const [text, setText] = useState("");
 
+function handleSubmit(e) {
+  e.preventDefault();
+  handler(text);
+}
+
   return (
-    <Form onSubmit={() => handler(text)}>
+    <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Image Service API Key</Form.Label>
         <Form.Control type="text" onChange={(e) => setText(e.target.value)} value={text} />
