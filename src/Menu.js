@@ -41,7 +41,7 @@ const LynxMenu = ({ currentDifficulty, setDifficulty, difficulties, image, statu
     <Navbar id="nav-menu" className="p-2 flex-row justify-content-between" bg="primary" variant="dark" expand="lg">
 
       <Nav className="flex-column pt-0 justify-content-start col-6 col-sm-2">
-        <Navbar.Brand id="nav-brand" onClick={reset}>Lynx</Navbar.Brand>
+        <Navbar.Brand className="pb-4" id="nav-brand" onClick={reset}>Lynx</Navbar.Brand>
         <NavDropdown title={"Difficulty: " + currentDifficulty.str} id="basic-nav-dropdown">
           {difficulties.map((x) =>
             <NavDropdown.Item key={x.str} className={currentDifficulty === x ? "active" : ""} onClick={() => setDifficulty(x)}>{x.str}

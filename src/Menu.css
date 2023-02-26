@@ -2,6 +2,10 @@ nav {
   text-transform: capitalize;
 }
 
+#nav-brand {
+  font-size: 2em;
+}
+
 #basic-nav-dropdown {
   padding: 0;
 }
