@@ -57,9 +57,8 @@ function Lynx() {
       setUrls(updated_urls);
       setTargetPic(pickRandomImage(updated_urls));
       setStatus("Fight!");
-      console.log(updated_urls);
     })
-  }, [difficulty, game])
+  }, [difficulty, game, api])
 
   /**
    * Check if selected image corresponds to target picture.
